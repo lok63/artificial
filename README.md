@@ -6,3 +6,7 @@ Interview Assignment
 * Startisfied split
 * Unbalanced data
   * SMOTE
+
+
+### REST
+Error handling when loading the dataset
