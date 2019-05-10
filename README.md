@@ -6,6 +6,7 @@ Interview Assignment
 - [ ] Startisfied split
 - [ ] Unbalanced data
 - [ ] SMOTE
+- [ ] Database change it
 
 
 ### REST
