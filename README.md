@@ -5,4 +5,4 @@ Interview Assignment
 
 * Startisfied split
 * Unbalanced data
-  *SMOTE
+  * SMOTE
