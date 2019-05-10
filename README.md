@@ -9,5 +9,5 @@ Interview Assignment
 
 
 ### REST
--[ ] Error handling when loading the dataset
--[ ] Tests
+- [ ] Error handling when loading the dataset
+- [ ] Tests
