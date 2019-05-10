@@ -2,5 +2,7 @@
 Interview Assignment
 
 ## TODO
+
 * Startisfied split
-* SMOTE
+* Unbalanced data
+  *SMOTE
