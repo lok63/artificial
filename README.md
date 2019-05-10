@@ -2,10 +2,10 @@
 Interview Assignment
 
 ## TODO
-* ETL
-* Startisfied split
-* Unbalanced data
-  * SMOTE
+- [ ] ETL
+- [ ] Startisfied split
+- [ ] Unbalanced data
+- [ ] SMOTE
 
 
 ### REST
