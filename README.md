@@ -7,7 +7,7 @@ Interview Assignment
 - [ ] Unbalanced data
 - [ ] SMOTE
 - [ ] Cost Function for unbalanced
-- [ ] Database change it
+- [ ] Database (explain why and what alternatives we could have used)
 
 
 ### REST
