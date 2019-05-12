@@ -10,5 +10,6 @@ Interview Assignment
 
 
 ### REST
+- [ ] Best practises for Hhosting microservices( servelsess, containers ) 
 - [ ] Error handling when loading the dataset
 - [ ] Tests
