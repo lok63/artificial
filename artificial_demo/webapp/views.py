@@ -27,13 +27,39 @@ def reset_BankModel(request):
         BankModel.objects.all().delete()
 
     request.session['updated'] = False
+
+    request.session['acc'] = "--"
+    request.session['prec'] = "--"
+    request.session['rec'] = "--"
+    request.session['f1'] = "--"
+    request.session['auc'] ="--"
+
+    request.session['acc_cv'] = "--"
+    request.session['prec_cv'] = "--"
+    request.session['rec_cv'] = "--"
+    request.session['f1_cv'] = "--"
+    request.session['auc_cv'] = "--"
     return redirect("/artificial_demo/machine-learning")
 
 
 def train_evaluate(requset):
     clf=ML()
     clf.train()
-    requset.session['acc'] = clf.evaluate() 
+
+    acc,prec,rec,f1,auc =   clf.evaluate() 
+    requset.session['acc'] = "{0:.2f}%".format(acc)
+    requset.session['prec'] = "{0:.2f}%".format(prec)
+    requset.session['rec'] = "{0:.2f}%".format(rec)
+    requset.session['f1'] = "{0:.2f}%".format(f1)
+    requset.session['auc'] = "{0:.2f}%".format(auc)
+
+    acc,prec,rec,f1,auc =   clf.cross_val_score() 
+    requset.session['acc_cv'] = "{0:.2f}%".format(acc)
+    requset.session['prec_cv'] = "{0:.2f}%".format(prec)
+    requset.session['rec_cv'] = "{0:.2f}%".format(rec)
+    requset.session['f1_cv'] = "{0:.2f}%".format(f1)
+    requset.session['auc_cv'] = "{0:.2f}%".format(auc)
+    
     return redirect("/artificial_demo/machine-learning")
 
 
@@ -61,14 +87,15 @@ def upload_file(request):
             csv_file = (request.FILES["file"])   
             #Return error messages when user upload wrong files
             if not csv_file.name.endswith('.csv'):
-                messages.error(request, "Please upload a csv file")
+                messages.error(request, "Please upload a csv file",fail_silently=True)
                 return render(request, template_form, args)
             else:
                 print("#### Updating Bank Table")
                 update_BankModel(csv_file)
+                args["file_name"] =csv_file
                 request.session['updated'] = True
-                #args["updated"]= True
-                return render(request, template_form)
+                messages.success(request,'Your have uploaded ' +  str(csv_file) +  ' successfully!')
+                return render(request, template_form, args)
 
 
         else: #When form is not valid render the upload form again
@@ -138,62 +165,3 @@ def list_dataset(request):
     #         y = column[16],
 
     #     )
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder, LabelBinarizer,MultiLabelBinarizer
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.linear_model import LogisticRegression
-from sklearn import svm
-from sklearn.model_selection import cross_val_score,StratifiedKFold
-from django_pandas.io import read_frame
-from .models import BankModel
-
-
-class ML():
-    def __init__(self):
-        bank_model = BankModel.objects.all()
-        df = read_frame(bank_model)
-
-        self.X = df.drop('y', axis=1)
-        y = df['y']
-        self.y = y.map(lambda x: 0 if x=="no" else 1)
-        self.clf = self.pre_process(self.X)
-
-
-    def pre_process(self, data):
-        print("#######  PRE-PROCESSING ###########")
-        numeric_features= list(data.columns[data.dtypes == 'int64'])
-        categorical_features = list(data.columns[data.dtypes == 'object'])
-
-        numeric_transformer = Pipeline(steps=[
-            ('scaler', StandardScaler())
-        ])
-
-        categorical_transformer = Pipeline(steps=[
-            ('onehot', OneHotEncoder())
-        ])
-
-        preprocessor = ColumnTransformer(
-            transformers=[
-                ('num', numeric_transformer, numeric_features),
-                ('cat', categorical_transformer, categorical_features[:-1])])
-
-        # Append classifier to preprocessing pipeline.
-        # Now we have a full prediction pipeline.
-        clf = Pipeline(steps=[('preprocessor', preprocessor),
-                            ('classifier', svm.SVC(kernel='linear'))])
-        return clf
-
-    def train(self):
-
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X,self.y,test_size=0.2, random_state=30, stratify=self.y)
-        print("####### TRAINING ###########")
-        self.clf.fit(self.X_train,self.y_train)
-        
-
-    def evaluate(self):
-        print("#######  EVALUATED ###########")
-        return self.clf.score(self.X_test,self.y_test)
-
-    def predict(self):
-        pass

@@ -17,6 +17,7 @@
 }
 
 </style>
+
 {% endblock %}
 {% block body %}
 <div class='container'>
@@ -24,7 +25,7 @@
 
                 
 
-            {% if messages %}
+            <!-- {% if messages %}
             <ol>
             {% for message in messages %}
             <div class="alert alert-warning text-center" role="alert">
@@ -33,7 +34,7 @@
                 
             {% endfor %}
             </ol>
-            {% endif %}
+            {% endif %} -->
 
 
             <div class="row">
@@ -57,15 +58,36 @@
                                 <div class="row">
                                         {% if request.session.updated %}
                                         <div class="col-6"><button type="submit" class="btn btn-primary" disabled>Upload</button></div>
-                                        <div class="col-6"><button onclick="location.href='reset'" class="btn btn-danger" >Delete</button></div>
                                         {% else %}
                                         <div class="col-6"><button type="submit" class="btn btn-primary" >Upload</button></div>
-                                        <div class="col-6"><button onclick="location.href='reset'" class="btn btn-danger" >Delete</button></div>
                                         {% endif %}
                                         
                                 </div>
 
                             </div>
+                        </div>
+                        <div class="card-footer">
+                                {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                    {% if message.tags == "success" %} 
+                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                            {{ message}}                                    
+                                    </div> 
+
+                                    {% else %}
+                                    <div class="alert alert-warning alert-dismissible" role="alert">
+                                        {{message}}                                    
+                                    </div> 
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                                {% if messages.SUCE %}
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                        You have successfuly uploaded <strong>{{file_name}}</strong>. Now you can train a new model
+                                </div>
+                                {% endif %}
                         </div>
                             
 
@@ -84,7 +106,7 @@
                 <div class="col-10">
                     <div class="card">
                         <div class="card-header bg-dark text-white text-center">
-                                <h4>Training / Validation</h4>
+                                <h4>Train and Validate a model</h4>
                                 
                         </div>
                         <div class="card-body">
@@ -92,20 +114,40 @@
                                         <div class="col-6">
                                             
                                             <div class="card">
-                                                    <div class="card-header">
-                                                            <h4>Train</h4>
+                                                    <div class="card-header text-center">
+                                                            <h4>Test Scores</h4>
                                                     </div>
                                                     <div class="card-body">
-                                                      <h5 class="card-title">Special title treatment</h5>
-                                                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                                                            <table class="table  table-hover table-striped">
+                                                                    <thead class="table-dark">
+                                                                      <tr style='white-space: nowrap' class="text-center">
+                                                                        <th scope="col">Accuracy</th>
+                                                                        <th scope="col">Precision</th>
+                                                                        <th scope="col">Recall</th>
+                                                                        <th scope="col">F1</th>
+                                                                        <th scope="col">AUC</th>
+                                                                      </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>{{request.session.acc}}</td>
+                                                                            <td>{{request.session.rec}}</td>
+                                                                            <td>{{request.session.prec}}</td>
+                                                                            <td>{{request.session.f1}}</td>
+                                                                            <td>{{request.session.auc}}</td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                            </table>
                                                     </div>
 
                                                   </div>
                                         </div><!-- End Training column-->
                                         <div class="col-6">
                                                 <div class="card">
-                                                        <div class="card-header">
-                                                                <h4>Cross-Validation Scores</h4>
+                                                        <div class="card-header text-center">
+                                                                <h4>Cross-Validation Test Scores</h4>
                                                         </div>
                                                         <div class="card-body">
 
@@ -116,16 +158,16 @@
                                                                             <th scope="col">Precision</th>
                                                                             <th scope="col">Recall</th>
                                                                             <th scope="col">F1</th>
-                                                                            <th scope="col">AOC</th>
+                                                                            <th scope="col">AUC</th>
                                                                           </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td>{{request.session.acc}}</td>
-                                                                                <td>-</td>
-                                                                                <td>-</td>
-                                                                                <td>-</td>
-                                                                                <td>-</td>
+                                                                                    <td>{{request.session.acc_cv}}</td>
+                                                                                    <td>{{request.session.rec_cv}}</td>
+                                                                                    <td>{{request.session.prec_cv}}</td>
+                                                                                    <td>{{request.session.f1_cv}}</td>
+                                                                                    <td>{{request.session.auc_cv}}</td>
 
                                                                             </tr>
                                                                         </tbody>
@@ -136,11 +178,16 @@
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                                {% if request.session.updated %}
-                                <div class="text-center"><button button onclick="location.href='train_evaluate'" class="btn btn-primary" >Create a new model</button></div>
-                                {%else%}
-                                <div class="text-center"><button type="submit" class="btn btn-primary" disabled>Create a new model</button></div>
-                                {% endif %}
+                                <div class="row">
+                                    {% if request.session.updated %}
+                                    <div class="col-6"><div class="text-center"><button button onclick="location.href='train_evaluate'" class="btn btn-primary btn-block" >Create a new model</button></div></div>
+                                    <div class="col-6"><div class="text-center"><button onclick="location.href='reset'" class="btn btn-danger btn-block">Start over</button></div></div>
+
+                                    {%else%}
+                                    <div class="col-6"><div class="text-center"><button button onclick="location.href='train_evaluate'" class="btn btn-primary btn-block" disabled >Create a new model</button></div></div>
+                                    <div class="col-6"><div class="text-center"><button onclick="location.href='reset'" class="btn btn-danger btn-block" disabled>Start over</button></div></div>
+                                    {% endif %}
+                                </div>
 
                         </div>
                         </div><!-- End col-10 -->

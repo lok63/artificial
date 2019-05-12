@@ -4,7 +4,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
-from sklearn.model_selection import cross_val_score,StratifiedKFold
+from sklearn.model_selection import cross_val_score,StratifiedKFold, cross_validate
+from sklearn.metrics import classification_report, f1_score, accuracy_score, precision_score, recall_score, roc_auc_score
 from django_pandas.io import read_frame
 from .models import BankModel
 
@@ -53,7 +54,24 @@ class ML():
 
     def evaluate(self):
         print("#######  EVALUATED ###########")
-        return self.clf.score(self.X_test,self.y_test)
+        y_pred = self.clf.predict(self.X_test)
+        acc =accuracy_score(self.y_test,y_pred)
+        prec =precision_score(self.y_test,y_pred)
+        rec= recall_score(self.y_test,y_pred)
+        f1 = f1_score(self.y_test,y_pred)
+        auc = roc_auc_score(self.y_test,y_pred)
+
+        return acc*100,prec*100,rec*100,f1,auc*100
+        
+        # return self.clf.score(self.X_test,self.y_test)
+
+    def cross_val_score(self):
+        skf = StratifiedKFold(n_splits=3, random_state=True, shuffle=True)
+        scores = cross_validate(self.clf, self.X, self.y, cv=skf, n_jobs=-1, scoring=["accuracy","recall", "precision",'f1', "roc_auc"])
+        for key, value in scores.items():
+            print("{}: {}".format(key, value.mean()))
+        
+        return scores["test_accuracy"].mean()*100, scores["test_recall"].mean()*100, scores["test_precision"].mean()*100, scores["test_f1"].mean()*100, scores["test_roc_auc"].mean()*100
 
     def predict(self):
         pass
