@@ -3,9 +3,10 @@ Interview Assignment
 
 ## TODO
 - [ ] ETL
-- [ ] Startisfied split
+- [X] Startisfied split
 - [ ] Unbalanced data
 - [ ] SMOTE
+- [ ] Cost Function for unbalanced
 - [ ] Database change it
 
 
