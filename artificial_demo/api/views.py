@@ -17,9 +17,26 @@ def store_dataset(request):
         return JsonResponse({"Sucess": "Well done it works"})
 
     elif request.method == "POST":
-        incoming_data = request.data
         print("#######################")
-        print(incoming_data)
+
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            csv_file = (request.FILES["file"])   
+            #Return error messages when user upload wrong files
+            if not csv_file.name.endswith('.csv'):
+                messages.error(request, "Please upload a csv file")
+                return render(request, template_form, args)
+            else:
+                print("#### Updating Bank Table")
+                update_BankModel(csv_file)
+
+                return redirect("/artificial_demo/list_dataset")
+
+        else: #When form is not valid render the upload form again
+            return render(request, template_form, args)
+
+
         response = {"Sucess": "You said " + incoming_data["test"] }
         return JsonResponse(response)
     
@@ -31,6 +48,7 @@ class Store_Data(APIView):
 
         incoming_data = request.data
         print("#######################")
+        print(request.FILES)
         print(incoming_data)
         response = {"Sucess": "You said " + incoming_data["test"] }
         return Response(response)
