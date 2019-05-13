@@ -20,6 +20,7 @@ The prediction will use a pre-trained model and will print the output straight a
 
 ### Prediction List - LIME
 The LIME repository can be found here: [https://github.com/marcotcr/lime](LIME repository)
+[I'm an inline-style link](https://www.google.com)
 
 
 ## How to run 
