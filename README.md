@@ -11,7 +11,11 @@ The web application has 3 main Views:
   3. Prediction List
      * View all predictions with the Model's decision and the likelihood(probability) of that decision
      * *NOTE*: A poosible extension here is to use LIME to interpolate the model and show which features contributed to the final decision
- 
+
+# How to run:
+1. Go to http://35.178.199.179/artificial_demo/machine-learning/
+2. Run it locally
+
 ### Training 
 If you want to train a new model it will take on average 10 minutes to complete training since i am running cross validation. **Dont reload the page** while training otherwise the model will stop training. I could fix this problem in the future by using threads to run the training in the background.
 
