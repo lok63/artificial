@@ -21,7 +21,7 @@ The web application has 3 main Views:
       
   2. Run it locally
  
-**NOTE** : Please note my intension was to develop a web app where you can develop and tune models online and make predictions. The intented webapp however is hosted on AWS EC2 micro instance and doesnt support heavy processing. Whenever you try to train will get a 502 error. However if you wish to train a model using the up you can run the code locally explained in a different section below.
+**NOTE** : Please note my intension was to develop a web app where you can develop and tune models online and make predictions. The intented webapp however is hosted on AWS EC2 micro instance and doesnt support heavy processing. Whenever you try to train it, you will get a 502 error. However if you wish to train a model using the app, you can run the code locally. Instructions are explained in a different section below.
 I am using XgbClassifier since Xgboost is used in AWS sage maker. There are endpoint for training and prediction but these are not being accessed by the user. They are only accessible within the app. However if you wish i can expose these endpoits as individual API endpoints in the future.
 
 ### Training a new model on the app
@@ -64,7 +64,7 @@ Then login use the following credentials:
   * password: admin
 
 ## TODO
-- [ ] Host application on AWS
+- [X] Host application on AWS
 - [ ] LIME
 - [X] Startisfied split
 - [ ] SMOTE
