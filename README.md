@@ -17,7 +17,7 @@ The web application has 3 main Views:
 In the future this webapp will be hosted in AWS and it will be accessed using a URL
 For now if you wish to run this app locally please follow the following instrunctions
 
-  pip install -r requirements.txt
+    pip install -r requirements.txt
   
 
 
