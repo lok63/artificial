@@ -33,7 +33,7 @@ def predict(data):
     df = clf.df.drop(["id"],axis=1)
     new_df=df.append(data).reset_index()
     print("---------------FORM IS NOT VALID")
-    print(new_df.tail(1))
+    print(new_df.shape)
 
     clf.pre_process(new_df)
 

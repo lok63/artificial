@@ -73,6 +73,9 @@ class ML():
         self.X = cleaned_data.drop('y', axis=1)
         self.y = cleaned_data['y']
         
+        print("####### REEEE ###########")
+        print(self.X.shape)
+
         pca = PCA(n_components=32)
         self.X = pca.fit_transform(self.X)
         print(self.X.shape)
@@ -82,7 +85,6 @@ class ML():
         
 
     def train(self):
-        print("####### REEEE ###########")
         print(self.df.head())
         self.pre_process(self.df)
         print("####### TRAINING ###########")
