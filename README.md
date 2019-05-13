@@ -4,11 +4,9 @@ All endpoints requested in the description have been created and wrapped in a dj
 
 The web application has 3 main Views:
   1. Train/Validate View
-    
     * Upload a csv file
     * Train and validate a new model
   2. Make a new prediction
-  
     * Fill up a form and make a new prediction
   3. Prediction List
      * View all predictions with the Model's decision and probability
