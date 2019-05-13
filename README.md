@@ -51,7 +51,9 @@ username: admin
 password: admin
 
 ## TODO
+- [ ] Host application on AWS
+- [ ] LIME
 - [X] Startisfied split
 - [ ] SMOTE
-- [ ] Host application on AWS
+
 
