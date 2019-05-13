@@ -19,18 +19,36 @@ If you want to train a new model it will take on average 10 minutes to complete 
 The prediction will use a pre-trained model and will print the output straight away
 
 ### Prediction List - LIME
-The LIME repository can be found here: [https://github.com/marcotcr/lime](LIME repository)
-[I'm an inline-style link](https://www.google.com)
+The LIME repository can be found here: [LIME repository](https://github.com/marcotcr/lime)
 
 
 ## How to run 
-In the future this webapp will be hosted in AWS and it will be accessed using a URL
-For now if you wish to run this app locally please follow the following instrunctions
+In the following days this webapp will be hosted in AWS and it will be accessed using a URL
+For now if you wish to run this app locally please follow the following instrunctions.
+
+Install dependencies
 
     pip install -r requirements.txt
+    
+Run the application:
+
+  Navigate to the root directory
   
+      cd artificial/artificial_demo
+      
+  And run 
+  
+        python manage.py runserver
 
+To access the application go to http://127.0.0.1:8000/artificial_demo/machine-learning/
+Now you can interact with it
 
+## Admin login
+If you want to examine or modify the database or the predictions got to : http://127.0.0.1:8000/admin
+
+Then login using the following credentials:
+username: admin
+password: admin
 
 ## TODO
 - [X] Startisfied split
