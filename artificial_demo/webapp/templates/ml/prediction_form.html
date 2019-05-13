@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+
+
+
+{%block head%}
+<style>
+    .card-body {
+  background-color:#f9fafc;
+  padding: 0 90px;
+}
+label{
+    font-weight: bold;
+    font-weight: bold;
+}
+    .form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class='container'>
+    {% if form.errors %}
+        <div class="alert alert-{{ message.tags }}">{{ form.errors }}</div>
+    {% endif %}
+
+    
+    <form method="post">
+
+        <!-- {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %} -->
+        {% csrf_token %}
+
+        <br>
+        <div class="card text">
+                <div class="card-header">
+                <h3>New customer form</h3>
+
+                  Please fill up this form to register a new customer and get the subscription prediction
+                </div>
+            <div class="card-body">  
+
+<!-- 1st row -->
+<hr>
+
+            <div class="form-row">
+
+              <div class="form-group col-md-3">
+                <label for="id_loan_amnt required">Age</label>
+                <input type="number" name="age"  class="form-control" step="any"  required id="id_age">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="balance">Balance</label>
+                <input type="number" name="balance"  step="any" required id="id_balance" class="form-control" >
+              </div>
+              <div class="form-group col-md-3">
+                    <label for="id_day required">Day</label>
+                    <input type="number" name="day"  step="any" required id="id_day" class="form-control" >
+
+                    <!-- <select name="month" id="month" class="form-control">
+                            <option value= 1 selected>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                            <option value=11>11</option>
+                            <option value=12>12</option>
+                            <option value=13>13</option> 
+                            <option value=14>14</option> 
+                            <option value=15>15</option> 
+                            <option value=16>16</option> 
+                            <option value=17>17</option> 
+                            <option value=18>18</option> 
+                            <option value=19>19</option> 
+                            <option value=20>20</option>
+                            <option value=21>21</option>
+                            <option value=22>22</option>
+                            <option value=23>23</option>
+                            <option value=24>24</option>
+                            <option value=25>25</option>
+                            <option value=26>26</option>
+                            <option value=27>27</option>
+                            <option value=28>28</option>
+                            <option value=29>29</option>
+                            <option value=30>30</option>
+                            <option value=31>31</option>
+                    </select> -->
+              </div>
+              <div class="form-group col-md-3">
+                    <label for="month">Month</label>
+                    <select name="month" id="month" class="form-control">
+                            <option value="jan" selected>Jannuary</option>
+                            <option value="feb">February</option>
+                            <option value="mar">March</option>
+                            <option value="apr">April</option>
+                            <option value="may">May</option>
+                            <option value="jun">June</option>
+                            <option value="jul">July</option>
+                            <option value="aug">August</option>
+                            <option value="sep">September</option>
+                            <option value="oct">October</option>
+                            <option value="nov">November</option>
+                            <option value="dec">December</option>    
+                    </select>
+                  </div>
+
+
+            </div>
+<!-- 2nd row -->
+<hr>
+
+            <div class="form-row">
+                    <div class="form-group col-md-3">
+                            <label for="marital">Marital</label>
+                            <select name="marital" id="marital" class="form-control">
+                                    <option value="married" selected>married</option>
+                                    <option value="single">single</option>
+                                    <option value="divorced">divorced</option>
+                            </select>
+
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="education">Education</label>
+                            <select name="education" id="education" class="form-control">
+                                    <option value="secondary" selected>secondary</option>
+                                    <option value="primary">primary</option>
+                                    <option value="unknown">unknown</option>
+                            </select>
+
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="default">Default</label>
+                            <select name="default" id="default" class="form-control">
+                                    <option value="no" selected>no</option>
+                                    <option value="yes">yes</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="housing">Housing</label>
+                            <select name="housing" id="housing" class="form-control">
+                                    <option value="no" selected>no</option>
+                                    <option value="yes">yes</option>
+                            </select>
+                    </div>
+            </div>
+<!-- 3rd row -->
+<hr>
+
+            <div class="form-row">
+                    <div class="form-group col-md-3">
+                            <label for="loan">Loan</label>
+                            <select name="loan" id="loan" class="form-control">
+                                    <option value="no" selected>no</option>
+                                    <option value="yes">yes</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="contact">Contact</label>
+                            <select name="contact" id="contact" class="form-control">
+                                    <option value="cellular" selected>cellular</option>
+                                    <option value="telephone">telephone</option>
+                                    <option value="unknown">unknown</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="poutcome">Poutcome</label>
+                            <select name="poutcome" id="poutcome" class="form-control">
+                                    <option value="failure" selected>failure</option>
+                                    <option value="success">success</option>
+                                    <option value="other">other</option>
+                                    <option value="unknown">unknown</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="term">Job</label>
+                            <select name="job" id="job" class="form-control">
+                                    <option value="management" selected>Management</option>
+                                    <option value="technician">Technician</option>
+                                    <option value="entrepreneur">Entrepreneur</option>
+                                    <option value="blue-collar">60 Blue-collar</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="admin.">Admin</option>
+                                    <option value="services">Services</option>
+                                    <option value="self-employed">Self-employed</option>
+                                    <option value="unemployed">Unemployed</option>
+                                    <option value="housemaid">Housemaid</option>
+                                    <option value="student">Student</option>
+            
+                                    <option value="unknown">Unknown</option>
+            
+                            </select>
+                          </div>
+            </div>
+<!-- 4th row-->
+            <hr>
+            <div class="form-row">
+
+                    <div class="form-group col-md-3">
+                      <label for="id_duration required">Duration</label>
+                      <input type="number" name="duration"  class="form-control" step="any"  required id="id_duration">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                      <label for="campaign">Campaign</label>
+                      <input type="number" name="campaign"  step="any" required id="id_campaign" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="pdays">Pdays</label>
+                            <input type="number" name="pdays"  step="any" required id="id_pdays" class="form-control" >
+                    </div>
+                    <div class="form-group col-md-3">
+                            <label for="previous">Previous</label>
+                            <input type="number" name="previous"  step="any" required id="id_previous" class="form-control" >
+                    </div>
+            </div>
+
+            <hr>
+            <button class="btn btn-primary" type='submit'>Submit</button>
+            
+        </div>
+
+    <br>
+</div>
+</form>
+</div>
+
+{% endblock %}

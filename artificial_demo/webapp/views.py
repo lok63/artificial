@@ -2,13 +2,11 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from urllib.parse import urlencode
 from django.urls import reverse
-# Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.template import RequestContext
-
-from .forms import UploadFileForm
-from .models import BankModel
+from .forms import UploadFileForm, CustomerForm
+from .models import BankModel,Predictions
 from django.contrib import messages
 import csv
 import io
@@ -17,6 +15,68 @@ import pandas as pd
 import os
 from django_pandas.io import read_frame
 from .machine_learning import ML
+import numpy as np
+
+
+def prediction_list(request):
+    template='ml/prediction_list.html'
+
+    predictions = Predictions.objects.all().order_by('-pk')
+    args = {'predictions':predictions}
+    # decision_buttons(request)
+
+    return render(request, template, args)
+
+
+def predict(data):
+    clf = ML()
+    df = clf.df.drop(["id"],axis=1)
+    new_df=df.append(data).reset_index()
+    print("---------------FORM IS NOT VALID")
+    print(new_df.tail(1))
+
+    clf.pre_process(new_df)
+
+    y_pred, y_proba = clf.predict()
+
+    prediction = Predictions.objects.latest("pk")
+    prediction.y = "No" if y_pred[0] == 0 else "Yes"
+    prediction.probability = np.round(y_proba[0][0], decimals=2)
+    prediction.save()
+
+
+def prediction_new(request):
+    template='ml/prediction_form.html'
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            columns = form.data.keys()
+            new_df = pd.DataFrame(pd.DataFrame(form.data.values()).values.reshape(1,-1)).drop(0,axis=1)
+            new_df.columns=list(columns)[1:]
+            num_col= ["age","balance","day","duration","campaign","pdays","previous"]
+            new_df[num_col] = new_df[num_col].apply(pd.to_numeric)
+            new_df["y"] = "no"
+            
+            predict(new_df)
+
+            # form.initial({"probability":y_proba})
+            # form.data["probability"] = y_proba
+            # form.data["y"] = y_pred
+
+            
+            return redirect('predictions')
+        else:
+            print("---------------FORM IS NOT VALID")
+            print(form.errors)
+            args = {'form':form, 'errors':form.errors}
+            return render(request, template, args)
+    else:
+        form = CustomerForm()
+        args = {'form':form}
+        return render(request, template, args)
 
 
 def reset_BankModel(request):

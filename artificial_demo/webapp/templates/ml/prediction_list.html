@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{%block head%}
+<script>
+//   window.setTimeout(function () {
+//     location.href = "http://127.0.0.1:8001/workflow/loan/";
+// }, 15000);
+  </script>
+<title>Predictions</title>
+{% endblock %}
+
+
+{%block body %}
+
+ <div class="container">
+     <br>
+     <h3>Prediction Results</h3>
+        <p>For simplicity only few features of the user are illustrated in this table</p>
+        <hr>
+        <div class="row">
+            <!-- <div class="col-lg-8"> -->
+              
+            <hr>
+            
+            <table class="table  table-hover table-striped">
+                    <thead class="table-dark">
+                      <tr style='white-space: nowrap' class="text-center">
+                        <th scope="col">ID</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Marital</th>
+                        <th scope="col">Education</th>
+                        <th scope="col">Default</th>
+                        <th scope="col">Loan</th>
+                        <th scope="col">Likelyhood</th>
+                        <th scope="col">Decision</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        {% for result in predictions %}
+                        <tr class="text-center" >
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.age }}</td>
+                            <td >{{ result.marital }}</td>
+                            <td>{{ result.education }}</td>
+                            <td>{{ result.default }}</td>
+                            <td>{{result.loan }} </td>
+                            <td>{{ result.probability }}</td>
+                            <td>{{result.y }} </td>
+                            <!-- <td>{{result.ml_decision }} </td> -->
+                            <td style='white-space: nowrap'>
+                              {% ifequal "Prediction completed" result.status %}
+
+                              <form method="get">
+
+                                <button type="submit"  value="{{ result.id }}" class="btn btn-success" name="acc_btn">Accept</button>
+                                <button type="submit"  value="{{ result.id }}" class="btn btn-danger" name="dec_btn">Decline</button>
+
+                               </form>
+                              {% else %}
+                                {% if "Issued" == result.decision %}
+                                <font color="green"><b>{{result.decision}}</b></font>
+                                {% elif  "Declined" == result.decision %}
+                                <font color="Red"><b>{{result.decision}}</b></font>
+                                {% endif %}
+                              {% endifequal %}
+                            </td>
+                        
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+
+            </table>
+  
+
+
+            <!-- </div> -->
+        </div>
+</div>
+
+
+  
+{% endblock %}
+
+
