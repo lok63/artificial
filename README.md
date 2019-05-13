@@ -7,9 +7,9 @@ The web application has 3 main Views:
      * Upload a csv file
      * Train and validate a new model
   2. Make a new prediction
-     * Fill up a form and make a new prediction
+     * Fill up a form for a new customer and make a new prediction 
   3. Prediction List
-     * View all predictions with the Model's decision and probability
+     * View all predictions with the Model's decision and the likelihood(probability) of that decision
      * *NOTE*: A poosible extension here is to use LIME to interpolate the model and show which features contributed to the final decision
   
   
@@ -20,10 +20,5 @@ The web application has 3 main Views:
 ## TODO
 - [X] Startisfied split
 - [ ] SMOTE
-- [ ] Cost Function for unbalanced
+- [ ]Host application on AWS
 
-
-### REST
-- [ ] Best practises for Hhosting microservices( servelsess, containers ) 
-- [ ] Error handling when loading the dataset
-- [ ] Tests
