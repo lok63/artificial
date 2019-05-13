@@ -14,10 +14,10 @@ The web application has 3 main Views:
 
 # How to run:
   1. Go to: 
-    * [Web app](http://35.178.199.179/artificial_demo/machine-learning/)
-    * [Admin screen ](http://35.178.199.179/admin)
-      * User: admin
-      * pswd: admin
+     * [Web app](http://35.178.199.179/artificial_demo/machine-learning/) Machibe Learning Demo
+     * [Admin screen ](http://35.178.199.179/admin) Interact/Modify database
+        * User: admin
+        * pswd: admin
       
   2. Run it locally
  
