@@ -113,12 +113,12 @@ def train_evaluate(requset):
     requset.session['f1'] = "{0:.2f}%".format(f1)
     requset.session['auc'] = "{0:.2f}%".format(auc)
 
-    acc,prec,rec,f1,auc =   clf.cross_val_score() 
-    requset.session['acc_cv'] = "{0:.2f}%".format(acc)
-    requset.session['prec_cv'] = "{0:.2f}%".format(prec)
-    requset.session['rec_cv'] = "{0:.2f}%".format(rec)
-    requset.session['f1_cv'] = "{0:.2f}%".format(f1)
-    requset.session['auc_cv'] = "{0:.2f}%".format(auc)
+    # acc,prec,rec,f1,auc =   clf.cross_val_score() 
+    # requset.session['acc_cv'] = "{0:.2f}%".format(acc)
+    # requset.session['prec_cv'] = "{0:.2f}%".format(prec)
+    # requset.session['rec_cv'] = "{0:.2f}%".format(rec)
+    # requset.session['f1_cv'] = "{0:.2f}%".format(f1)
+    # requset.session['auc_cv'] = "{0:.2f}%".format(auc)
     
     return redirect("/artificial_demo/machine-learning")
 
