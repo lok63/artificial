@@ -13,23 +13,32 @@ The web application has 3 main Views:
      * *NOTE*: A poosible extension here is to use LIME to interpolate the model and show which features contributed to the final decision
 
 # How to run:
-1. Go to http://35.178.199.179/artificial_demo/machine-learning/
-2. Run it locally
+  1. Go to: 
+    * [Web app](http://35.178.199.179/artificial_demo/machine-learning/)
+    * [Admin screen ](http://35.178.199.179/admin)
+      * User: admin
+      * pswd: admin
+      
+  2. Run it locally
+ 
+**NOTE** : Please note my intension was to develop a web app where you can develop and tune models online and make predictions. The intented webapp however is hosted on AWS EC2 micro instance and doesnt support heavy processing. Whenever you try to train will get a 502 error. However if you wish to train a model using the up you can run the code locally explained in a different section below.
+I am using XgbClassifier since Xgboost is used in AWS sage maker. There are endpoint for training and prediction but these are not being accessed by the user. They are only accessible within the app. However if you wish i can expose these endpoits as individual API endpoints in the future.
 
-### Training 
-If you want to train a new model it will take on average 10 minutes to complete training since i am running cross validation. **Dont reload the page** while training otherwise the model will stop training. I could fix this problem in the future by using threads to run the training in the background.
+### Training a new model on the app
+As it was explained above this functionality can be operated only locally for now. If you want to train a new model it will take on average 5-7 minutes to complete training since i am running cross validation. **Dont reload the page** while training otherwise the model will stop training. I could fix this problem in the future by using threads to run the training in the background.
 
 ### New prediction
-The prediction will use a pre-trained model and will print the output straight away
+**Please make sure you upload the dataset before making any predictions**
+The prediction will use the pre-trained model that you just created. If you didn't train the model, a pre-trained model already exists in the repository.
 
 ### Prediction List - LIME
-The LIME repository can be found here: [LIME repository](https://github.com/marcotcr/lime)
+The LIME repository can be found here: [LIME repository](https://github.com/marcotcr/lime). I am currently working on it
 
 
-## How to run 
-In the following days this webapp will be hosted in AWS and it will be accessed using a URL
-For now if you wish to run this app locally please follow the following instrunctions.
+## How to run locally
 
+Create and actibate a virtual environment. You can use conda or virtualenv. Make sure you are using python3.
+    
 Install dependencies
 
     pip install -r requirements.txt
