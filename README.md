@@ -13,12 +13,17 @@ The web application has 3 main Views:
      * *NOTE*: A poosible extension here is to use LIME to interpolate the model and show which features contributed to the final decision
   
   
+## How to run 
+In the future this webapp will be hosted in AWS and it will be accessed using a URL
+For now if you wish to run this app locally please follow the following instrunctions
 
+  pip install -r requirements.txt
+  
 
 
 
 ## TODO
 - [X] Startisfied split
 - [ ] SMOTE
-- [ ]Host application on AWS
+- [ ] Host application on AWS
 
