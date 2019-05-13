@@ -46,9 +46,9 @@ Now you can interact with it
 ## Admin login
 If you want to examine or modify the database or the predictions got to : http://127.0.0.1:8000/admin
 
-Then login using the following credentials:
-username: admin
-password: admin
+Then login use the following credentials:
+  * username: admin
+  * password: admin
 
 ## TODO
 - [ ] Host application on AWS
