@@ -1,6 +1,6 @@
 # Artificial Demo
 
-All endpoints requested in the description have been created and wrapped in a django WebApplication. However i can expose them as individual endpoinds later on. 
+All endpoints requested in the description have been created and wrapped in a django WebApplication. However i can expose them as individual endpoinds later on. In addition this application can support users and authentication. The database i used is SQLite for simplicity. In the future i can easily move to any RDBMS. For NoSQL and Django there is limited support at the moment but i could configure MongoDB.
 
 The web application has 3 main Views:
   1. Train/Validate View
@@ -19,7 +19,7 @@ If you want to train a new model it will take on average 10 minutes to complete 
 The prediction will use a pre-trained model and will print the output straight away
 
 ### Prediction List - LIME
-The LIME package would interpolate the model and the results will look like this:
+The LIME repository can be found here: [https://github.com/marcotcr/lime](LIME repository)
 
 
 ## How to run 
