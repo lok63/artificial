@@ -11,8 +11,17 @@ The web application has 3 main Views:
   3. Prediction List
      * View all predictions with the Model's decision and the likelihood(probability) of that decision
      * *NOTE*: A poosible extension here is to use LIME to interpolate the model and show which features contributed to the final decision
-  
-  
+ 
+### Training 
+If you want to train a new model it will take on average 10 minutes to complete training since i am running cross validation. **Dont reload the page** while training otherwise the model will stop training. I could fix this problem in the future by using threads to run the training in the background.
+
+### New prediction
+The prediction will use a pre-trained model and will print the output straight away
+
+### Prediction List - LIME
+The LIME package would interpolate the model and the results will look like this:
+
+
 ## How to run 
 In the future this webapp will be hosted in AWS and it will be accessed using a URL
 For now if you wish to run this app locally please follow the following instrunctions
