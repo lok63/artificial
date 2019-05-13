@@ -53,6 +53,7 @@ Run the application:
   
         python manage.py runserver
 
+If encounder sqlite3 issues that means your python versions is not configured with sqlite. To solve this issue is sugested to use a conda virtual environment and inherit the pre-install anaconda packages ( sqlite is already configured there)
 To access the application go to http://127.0.0.1:8000/artificial_demo/machine-learning/
 Now you can interact with it
 
