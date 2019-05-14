@@ -20,7 +20,7 @@ class ML():
         # self.pre_trained_clf = pickle.load(open("model_dumps/svc.pkl", 'rb'))
         
         self.pre_trained_clf = pickle.load(open(os.path.join(os.getcwd(),"webapp/model_dumps/svc2.pkl"), 'rb'))
-
+        self.xgb = pickle.load(open(os.path.join(os.getcwd(),"webapp/model_dumps/xgb.pkl"), 'rb'))
 
         bank_model = BankModel.objects.all()
         df = read_frame(bank_model)

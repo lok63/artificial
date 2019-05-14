@@ -41,7 +41,7 @@ def predict(data):
 
     prediction = Predictions.objects.latest("pk")
     prediction.y = "No" if y_pred[0] == 0 else "Yes"
-    prediction.probability = np.round(y_proba[0][0], decimals=2)
+    prediction.probability = np.round(float(y_proba[0][1]), decimals=2)
     prediction.save()
 
 
@@ -113,12 +113,12 @@ def train_evaluate(requset):
     requset.session['f1'] = "{0:.2f}%".format(f1)
     requset.session['auc'] = "{0:.2f}%".format(auc)
 
-    # acc,prec,rec,f1,auc =   clf.cross_val_score() 
-    # requset.session['acc_cv'] = "{0:.2f}%".format(acc)
-    # requset.session['prec_cv'] = "{0:.2f}%".format(prec)
-    # requset.session['rec_cv'] = "{0:.2f}%".format(rec)
-    # requset.session['f1_cv'] = "{0:.2f}%".format(f1)
-    # requset.session['auc_cv'] = "{0:.2f}%".format(auc)
+    acc,prec,rec,f1,auc =   clf.cross_val_score() 
+    requset.session['acc_cv'] = "{0:.2f}%".format(acc)
+    requset.session['prec_cv'] = "{0:.2f}%".format(prec)
+    requset.session['rec_cv'] = "{0:.2f}%".format(rec)
+    requset.session['f1_cv'] = "{0:.2f}%".format(f1)
+    requset.session['auc_cv'] = "{0:.2f}%".format(auc)
     
     return redirect("/artificial_demo/machine-learning")
 

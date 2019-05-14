@@ -1,7 +1,7 @@
 from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelEncoder, LabelBinarizer,MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, KFold
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
 from sklearn.model_selection import cross_val_score,StratifiedKFold, cross_validate
@@ -20,6 +20,7 @@ class ML():
 
         #load pre-trained model  "snp_data.txt")
         self.pre_trained_clf = pickle.load(open(os.path.join(os.getcwd(),"webapp/model_dumps/svc_v1.pkl"), 'rb'))
+        self.xgb = pickle.load(open(os.path.join(os.getcwd(),"webapp/model_dumps/xgb.pkl"), 'rb'))
 
         # self.pre_trained_clf = pickle.load(open("/model_dumps/svc.pkl", 'rb'))
 
@@ -41,8 +42,8 @@ class ML():
     def predict(self):
 
 
-        y_pred=self.pre_trained_clf.predict([self.X[-1]])
-        y_proba=self.pre_trained_clf.predict_proba([self.X[-1]])
+        y_pred=self.xgb.predict([self.X[-1]])
+        y_proba=self.xgb.predict_proba([self.X[-1]])
         print(y_pred)
         print(y_proba)
 
@@ -88,13 +89,13 @@ class ML():
         print(self.df.head())
         self.pre_process(self.df)
         print("####### TRAINING ###########")
-        self.svc.fit(self.X_train,self.y_train)
+        self.xgb.fit(self.X_train,self.y_train)
 
-        pickle.dump(self.svc, open(os.path.join(os.getcwd(),"webapp/model_dumps/svc_v1.pkl"), 'wb'))
+        pickle.dump(self.xgb, open(os.path.join(os.getcwd(),"webapp/model_dumps/xgb.pkl"), 'wb'))
         
 
     def evaluate(self):
-        y_pred = self.svc.predict(self.X_test)
+        y_pred = self.xgb.predict(self.X_test)
         print(y_pred)
         acc =accuracy_score(self.y_test,y_pred)
         prec =precision_score(self.y_test,y_pred)
@@ -109,7 +110,9 @@ class ML():
     def cross_val_score(self):
         print("#######  CROSS-VALIDATION ###########")
         skf = StratifiedKFold(n_splits=3, random_state=True, shuffle=True)
-        scores = cross_validate(self.svc, self.X, self.y, cv=skf, n_jobs=-1, scoring=["accuracy","recall", "precision",'f1', "roc_auc"])
+        kfold = KFold(n_splits=3, random_state=7)
+
+        scores = cross_validate(self.xgb, self.X, self.y, cv=kfold, n_jobs=-1, scoring=["accuracy","recall", "precision",'f1', "roc_auc"])
         for key, value in scores.items():
             print("{}: {}".format(key, value.mean()))
         
