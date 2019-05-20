@@ -1,5 +1,8 @@
 # Artificial Demo
 
+**NOTE: I have disabled the AWS services. If you wish to see this demo live please contact me to re-enable them** 
+
+
 All endpoints requested in the description have been created and wrapped in a django WebApplication. However i can expose them as individual endpoinds later on. In addition this application can support users and authentication. The database i used is SQLite for simplicity. In the future i can easily move to any RDBMS. For NoSQL and Django there is limited support at the moment but i could configure MongoDB.
 
 The web application has 3 main Views:
