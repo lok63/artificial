@@ -230,7 +230,7 @@ tqdm==4.25.0
 traitlets==4.3.2
 tweepy==3.6.0
 tweetpy==0.1
-Twisted==18.9.0
+Twisted==22.10.0
 twython==3.7.0
 typing==3.6.4
 unicodecsv==0.14.1
